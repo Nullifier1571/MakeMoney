@@ -7,6 +7,8 @@ import {asyncRequestHomePageData} from '../../actions/home'
 
 import './index.scss'
 import {add, asyncAdd, minus} from "../../actions/counter";
+import HomeCategory from "../../components/home/category";
+import CLoading from "../../components/loading";
 
 // #region 书写注意
 //
@@ -22,7 +24,12 @@ import {add, asyncAdd, minus} from "../../actions/counter";
 type PageStateProps = {
   home: {
     num: number
-    home_data: {}
+    home_data: {
+      data:{
+        category: []
+      }
+
+    }
   }
 
   counter: {
@@ -31,7 +38,7 @@ type PageStateProps = {
 }
 
 type PageDispatchProps = {
-  asyncRequestHomePageData: (userInfo: {}, locationInfo: {}) => {home_data: {}}
+  asyncRequestHomePageData: (userInfo: {}, locationInfo: {}) => { home_data: {} }
   add: () => void
   dec: () => void
   asyncAdd: () => any
@@ -71,6 +78,9 @@ class Index extends Component<PropsWithChildren> {
 
   async componentDidMount() {
     try {
+      console.log('地理位置信息：======================');
+      this.getLocation()
+
       const result = await this.props.asyncRequestHomePageData({"user_id": "1"}, {"lat": 40.0, "lon": 20.0});
       console.log('request data：======================', result);
     } catch (error) {
@@ -114,20 +124,27 @@ class Index extends Component<PropsWithChildren> {
   }
 
   render() {
-    console.log('地理位置信息：======================');
-    this.getLocation()
 
-    return (
-      <View className='index'>
-        <Button className='add_btn' onClick={this.props.add}>+</Button>
-        <Button className='dec_btn' onClick={this.props.dec}>-</Button>
-        <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View><Text>{""+this.props.home.num}</Text></View>
 
-        <View><Text>{""+this.props.home.home_data}</Text></View>
-        <View><Text>Hello, World</Text></View>
-      </View>
-    )
+    if (this.props.home != undefined && this.props.home.home_data != undefined) {
+      var category = []
+      if(this.props.home.home_data.data.category!= undefined){
+        category=this.props.home.home_data.data.category
+      }
+      console.log('首页信息 category：', category);
+      return (
+        <View className='index'>
+          <HomeCategory data={category}/>
+        </View>
+      )
+    } else {
+      return (
+        <View className='index'>
+          <CLoading fullPage={true} hide={false}/>
+        </View>
+      )
+    }
+
   }
 }
 

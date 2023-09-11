@@ -37,7 +37,7 @@ export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
   return async dispatch => {
     try {
       const response = await Taro.request({
-        url: `${baseUrl}/index/list/data`,
+        url: `/index/list/data`,
         method: 'GET', // 根据您的需求选择请求方法
         data: {
           limit: 10,
@@ -67,7 +67,7 @@ export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
         dispatch({
           userInfo:userInfo,
           locationInfo:locationInfo,
-          result:{"resultCode":-1},
+          result:{"statusCode":-1},
           type: HOME_PAGE_REQUEST
         });
       }
@@ -77,7 +77,7 @@ export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
       dispatch({
         userInfo:userInfo,
         locationInfo:locationInfo,
-        result:{"resultCode":-2},
+        result:{"statusCode":-2},
         type: HOME_PAGE_REQUEST
       });
       // 这里可以 dispatch 一个错误处理的 action
