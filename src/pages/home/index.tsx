@@ -9,6 +9,7 @@ import './index.scss'
 import {add, asyncAdd, minus} from "../../actions/counter";
 import HomeCategory from "../../components/home/category";
 import CLoading from "../../components/loading";
+import HomeBanner from "../../components/home/banner";
 
 // #region 书写注意
 //
@@ -27,6 +28,7 @@ type PageStateProps = {
     home_data: {
       data:{
         category: []
+        banner: []
       }
 
     }
@@ -39,9 +41,6 @@ type PageStateProps = {
 
 type PageDispatchProps = {
   asyncRequestHomePageData: (userInfo: {}, locationInfo: {}) => { home_data: {} }
-  add: () => void
-  dec: () => void
-  asyncAdd: () => any
 }
 
 type PageOwnProps = {}
@@ -132,9 +131,15 @@ class Index extends Component<PropsWithChildren> {
         category=this.props.home.home_data.data.category
       }
       console.log('首页信息 category：', category);
+      var banner = []
+      if(this.props.home.home_data.data.banner!= undefined){
+        banner=this.props.home.home_data.data.banner
+      }
+
       return (
         <View className='index'>
           <HomeCategory data={category}/>
+          <HomeBanner bannerData={banner}/>
         </View>
       )
     } else {
