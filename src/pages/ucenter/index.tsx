@@ -95,7 +95,7 @@ class Index extends Component<PropsWithChildren> {
   }
 
   render() {
-    console.log('地理位置信息：======================');
+    console.log('地理位置信息：======================#####');
     this.getLocation()
 
     return (

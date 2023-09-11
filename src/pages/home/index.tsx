@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import {View, Button, Text, Map} from '@tarojs/components'
 import Taro from '@tarojs/taro'
 
-import {add, minus, asyncAdd} from '../../actions/counter'
+import {asyncRequestHomePageData} from '../../actions/home'
 
 import './index.scss'
+import {add, asyncAdd, minus} from "../../actions/counter";
 
 // #region 书写注意
 //
@@ -17,13 +18,20 @@ import './index.scss'
 //
 // #endregion
 
+//这里参数名字要跟页面注册的名字一致，也就是reducers里的名字
 type PageStateProps = {
+  home: {
+    num: number
+    home_data: {}
+  }
+
   counter: {
     num: number
   }
 }
 
 type PageDispatchProps = {
+  asyncRequestHomePageData: (userInfo: {}, locationInfo: {}) => {home_data: {}}
   add: () => void
   dec: () => void
   asyncAdd: () => any
@@ -39,9 +47,12 @@ interface Index {
   props: IProps;
 }
 
-@connect(({counter}) => ({
-  counter
+@connect(({home}) => ({
+  home
 }), (dispatch) => ({
+  asyncRequestHomePageData(userInfo: {}, locationInfo: {}) {
+    dispatch(asyncRequestHomePageData(userInfo, locationInfo))
+  },
   add() {
     dispatch(add())
   },
@@ -57,13 +68,21 @@ class Index extends Component<PropsWithChildren> {
     console.log(this.props, nextProps)
   }
 
-  componentWillUnmount() {
+
+  async componentDidMount() {
+    try {
+      const result = await this.props.asyncRequestHomePageData({"user_id": "1"}, {"lat": 40.0, "lon": 20.0});
+      console.log('request data：======================', result);
+    } catch (error) {
+      console.error('请求数据失败', error);
+    }
   }
 
-  componentDidShow() {
-  }
-
-  componentDidHide() {
+  componentDidUpdate(prevProps: IProps) {
+    // 在这里检查 prevProps.home_data 和 this.props.home_data 是否有变化
+    if (prevProps.home.home_data !== this.props.home.home_data) {
+      console.log('数据已更新', this.props.home.home_data);
+    }
   }
 
   onTap() {
@@ -103,7 +122,9 @@ class Index extends Component<PropsWithChildren> {
         <Button className='add_btn' onClick={this.props.add}>+</Button>
         <Button className='dec_btn' onClick={this.props.dec}>-</Button>
         <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
-        <View><Text>{this.props.counter.num}</Text></View>
+        <View><Text>{""+this.props.home.num}</Text></View>
+
+        <View><Text>{""+this.props.home.home_data}</Text></View>
         <View><Text>Hello, World</Text></View>
       </View>
     )
