@@ -1,7 +1,7 @@
 import {Component, PropsWithChildren} from "react";
 import {View} from "@tarojs/components";
 import {Swiper, SwiperItem} from '@tarojs/components'
-import {AtSteps} from 'taro-ui'
+import {AtSteps,AtInput, AtForm} from 'taro-ui'
 
 interface IPropsState {
   step_current: number
@@ -65,6 +65,7 @@ class PublishPage extends Component<IProps, IPropsState> {
     });
   };
 
+
   render() {
     return (
       <View>
@@ -80,7 +81,45 @@ class PublishPage extends Component<IProps, IPropsState> {
           onChange={this.handleSwiperChange}
         >
           <SwiperItem>
-            <View className='demo-text-1'>1</View>
+            <AtForm>
+              <AtInput
+                name='value1'
+                title='文本'
+                type='text'
+                placeholder='单行文本'
+              />
+              <AtInput
+                name='value2'
+                title='数字'
+                type='number'
+                placeholder='请输入数字'
+              />
+              <AtInput
+                name='value3'
+                title='密码'
+                type='password'
+                placeholder='密码不能少于10位数'
+              />
+              <AtInput
+                name='value4'
+                title='身份证'
+                type='idcard'
+                placeholder='身份证号码'
+              />
+              <AtInput
+                name='value5'
+                title='小数'
+                type='digit'
+                placeholder='请输入小数'
+              />
+              <AtInput
+                name='value6'
+                border={false}
+                title='手机号码'
+                type='phone'
+                placeholder='手机号码'
+              />
+            </AtForm>
           </SwiperItem>
           <SwiperItem>
             <View className='demo-text-2'>2</View>
