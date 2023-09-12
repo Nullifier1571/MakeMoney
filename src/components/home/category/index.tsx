@@ -16,6 +16,7 @@ class HomeCategory extends Component<IProps> {
           data={this.props.data}
           onClick={(item, index, event) => {
             console.log(`item  ${item}  index  ${index}   event  ${event}`)
+            console.log(`item.action  ${item.action} `)
             Taro.navigateTo({
               url: item.action
             });

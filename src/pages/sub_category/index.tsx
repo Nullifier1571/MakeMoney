@@ -24,10 +24,6 @@ interface SubCategoryPage {
   props: IProps;
 }
 
-interface IProps {
-  data: []
-}
-
 @connect(({subcategory}) => ({
   subcategory
 }), (dispatch) => ({
