@@ -37,7 +37,7 @@ class PublishPage extends Component<IProps, IPropsState> {
     const {step_data} = this.state;
     const currentIndex = e.detail.current;
     const updatedStepData = [...step_data]; // 创建副本以避免直接修改 state
-    if (currentIndex == 1) {
+    if (currentIndex == 0) {
       // 更新第一条数据的 status
       updatedStepData[0].status = 'none'; // 在副本中更新第一条数据的 status
       updatedStepData[1].status = 'none'; // 在副本中更新第一条数据的 status
@@ -46,15 +46,15 @@ class PublishPage extends Component<IProps, IPropsState> {
 
     if (currentIndex == 1) {
       // 更新第一条数据的 status
-      updatedStepData[0].status = 'successful'; // 在副本中更新第一条数据的 status
+      updatedStepData[0].status = 'success'; // 在副本中更新第一条数据的 status
       updatedStepData[1].status = 'none'; // 在副本中更新第一条数据的 status
       updatedStepData[2].status = 'none'; // 在副本中更新第一条数据的 status
     }
 
     if (currentIndex == 2) {
       // 更新第一条数据的 status
-      updatedStepData[0].status = 'successful';
-      updatedStepData[1].status = 'successful';
+      updatedStepData[0].status = 'success';
+      updatedStepData[1].status = 'success';
       updatedStepData[2].status = 'none';
     }
 
@@ -74,8 +74,8 @@ class PublishPage extends Component<IProps, IPropsState> {
         />
         <Swiper
           className='test-h'
-          vertical
-          circular
+          vertical={false}
+          circular={false}
           current={this.state.step_current}
           onChange={this.handleSwiperChange}
         >
