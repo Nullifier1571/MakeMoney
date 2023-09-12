@@ -6,7 +6,9 @@ import {asyncRequestSubCategoryPageData} from "../../actions/subcategory";
 
 type PageStateProps = {
   subcategory: {
-    data: []
+    data: {
+      category:[]
+    }
   }
 }
 
@@ -38,9 +40,10 @@ class SubCategoryPage extends Component<IProps> {
   }
 
   render() {
+    console.log("++++++++++++++"+this.props.subcategory)
     var data = []
-    if (this.props.subcategory != undefined && this.props.subcategory.data != undefined) {
-      data = this.props.subcategory.data
+    if (this.props.subcategory != undefined && this.props.subcategory.data != undefined&&this.props.subcategory.data.category!=undefined) {
+      data = this.props.subcategory.data.category
     }
     return (
       <ScrollView scrollY

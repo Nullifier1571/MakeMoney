@@ -17,7 +17,7 @@ export function asyncRequestSubCategoryPageData(userInfo: {}, locationInfo: {}) 
 
       if (result.statusCode == 200) {
         var data = result.data
-        console.log("======二级大类请求成功====="+data)
+        console.log("======二级大类请求成功====="+JSON.stringify(data))
 
         dispatch({
           userInfo: userInfo,

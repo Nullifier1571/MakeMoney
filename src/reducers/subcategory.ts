@@ -5,12 +5,13 @@ const INITIAL_STATE = {
 }
 
 export default function subcategory (state = INITIAL_STATE, action) {
+  console.log(`============二级大类页数据返回=============${action} === ${JSON.stringify(action.result)}`);
+
   switch (action.type) {
     case SUB_CATEGORY_PAGE_REQUEST:
-      console.log(`============二级大类页数据返回=============`);
       return {
         ...state,
-        data: state.result
+        data: action.result
       }
     default:
       return state
