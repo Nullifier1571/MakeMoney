@@ -3,11 +3,14 @@ import {ScrollView, Text, View} from "@tarojs/components";
 import {AtGrid} from "taro-ui"
 import {connect} from 'react-redux'
 import {asyncRequestSubCategoryPageData} from "../../actions/subcategory";
+import Taro from "@tarojs/taro";
 
 type PageStateProps = {
   subcategory: {
     data: {
-      category:[]
+      data: {
+        category: []
+      }
     }
   }
 }
@@ -40,10 +43,10 @@ class SubCategoryPage extends Component<IProps> {
   }
 
   render() {
-    console.log("++++++++++++++"+this.props.subcategory)
+    console.log("++++++++++++++" + JSON.stringify(this.props.subcategory.data.data))
     var data = []
-    if (this.props.subcategory != undefined && this.props.subcategory.data != undefined&&this.props.subcategory.data.category!=undefined) {
-      data = this.props.subcategory.data.category
+    if (this.props.subcategory != undefined && this.props.subcategory.data != undefined && this.props.subcategory.data.data.category != undefined) {
+      data = this.props.subcategory.data.data.category
     }
     return (
       <ScrollView scrollY
@@ -51,7 +54,13 @@ class SubCategoryPage extends Component<IProps> {
         {data.map((item, index) => (
           <View key={index}>
             <Text>{item.title}</Text>
-            <AtGrid mode='rect' data={item.list}/>
+            <AtGrid mode='rect' data={item.list}
+                    onClick={(item, index, event) => {
+                      console.log(`item.action  ${item.action} `)
+                      Taro.navigateTo({
+                        url: item.action
+                      });
+                    }}/>
           </View>
         ))}
       </ScrollView>
