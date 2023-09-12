@@ -6,7 +6,6 @@ import Taro from '@tarojs/taro'
 import {asyncRequestHomePageData} from '../../actions/home'
 
 import './index.scss'
-import {add, asyncAdd, minus} from "../../actions/counter";
 import HomeCategory from "../../components/home/category";
 import CLoading from "../../components/loading";
 import HomeBanner from "../../components/home/banner";
@@ -24,18 +23,12 @@ import HomeBanner from "../../components/home/banner";
 //这里参数名字要跟页面注册的名字一致，也就是reducers里的名字
 type PageStateProps = {
   home: {
-    num: number
     home_data: {
       data:{
         category: []
         banner: []
       }
-
     }
-  }
-
-  counter: {
-    num: number
   }
 }
 
@@ -59,15 +52,6 @@ interface Index {
   asyncRequestHomePageData(userInfo: {}, locationInfo: {}) {
     dispatch(asyncRequestHomePageData(userInfo, locationInfo))
   },
-  add() {
-    dispatch(add())
-  },
-  dec() {
-    dispatch(minus())
-  },
-  asyncAdd() {
-    dispatch(asyncAdd())
-  }
 }))
 class Index extends Component<PropsWithChildren> {
   componentWillReceiveProps(nextProps) {
@@ -80,8 +64,7 @@ class Index extends Component<PropsWithChildren> {
       console.log('地理位置信息：======================');
       this.getLocation()
 
-      const result = await this.props.asyncRequestHomePageData({"user_id": "1"}, {"lat": 40.0, "lon": 20.0});
-      console.log('request data：======================', result);
+      this.props.asyncRequestHomePageData({"user_id": "1"}, {"lat": 40.0, "lon": 20.0});
     } catch (error) {
       console.error('请求数据失败', error);
     }

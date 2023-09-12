@@ -2,38 +2,12 @@ import {
   HOME_PAGE_REQUEST,
 } from '../constants/home'
 
-import {
-  ADD,
-  MINUS
-} from '../constants/counter'
 import Taro from "@tarojs/taro";
 import {baseUrl} from "../config";
 
-export const add = () => {
-  return {
-    type: ADD
-  }
-}
-export const minus = () => {
-  return {
-    type: MINUS
-  }
-}
-
 // 异步的action
-export function asyncAdd () {
-  return dispatch => {
-    setTimeout(() => {
-      dispatch(add())
-    }, 2000)
-  }
-}
-
-
-
-export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
+export function asyncRequestHomePageData(userInfo: {}, locationInfo: {}) {
   //在这里做异步网络请求
-
   return async dispatch => {
     try {
       const response = await Taro.request({
@@ -42,8 +16,8 @@ export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
         data: {
           limit: 10,
           page: 1,
-          tabName: userInfo,
-          location: locationInfo
+          userInfo: userInfo,
+          locationInfo: locationInfo
         }
         // 可以添加其他请求参数，如 data、header 等
       });
@@ -55,9 +29,9 @@ export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
 
         // 使用 dispatch 分发 action，将结果传递给 reducer
         dispatch({
-          userInfo:userInfo,
-          locationInfo:locationInfo,
-          result:result,
+          userInfo: userInfo,
+          locationInfo: locationInfo,
+          result: result,
           type: HOME_PAGE_REQUEST
         });
       } else {
@@ -65,9 +39,9 @@ export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
         console.error('请求失败:', response.statusCode);
         // 这里可以 dispatch 一个错误处理的 action
         dispatch({
-          userInfo:userInfo,
-          locationInfo:locationInfo,
-          result:{"statusCode":-1},
+          userInfo: userInfo,
+          locationInfo: locationInfo,
+          result: {"statusCode": -1},
           type: HOME_PAGE_REQUEST
         });
       }
@@ -75,20 +49,12 @@ export const requestHomePageData = (userInfo:{},locationInfo:{}) => {
       // 发生异常，可以进行错误处理
       console.error('请求发生异常:', error);
       dispatch({
-        userInfo:userInfo,
-        locationInfo:locationInfo,
-        result:{"statusCode":-2},
+        userInfo: userInfo,
+        locationInfo: locationInfo,
+        result: {"statusCode": -2},
         type: HOME_PAGE_REQUEST
       });
       // 这里可以 dispatch 一个错误处理的 action
     }
   };
-}
-
-
-// 异步的action
-export function asyncRequestHomePageData (userInfo:{},locationInfo:{}) {
-  return dispatch => {
-    dispatch(requestHomePageData(userInfo,locationInfo))
-  }
 }

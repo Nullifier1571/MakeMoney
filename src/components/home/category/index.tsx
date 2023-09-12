@@ -1,6 +1,7 @@
 import {Component} from "react";
 import {Button, Text, View} from "@tarojs/components";
 import {AtGrid} from "taro-ui"
+import Taro from "@tarojs/taro";
 
 type IProps = {
   data: []
@@ -15,6 +16,9 @@ class HomeCategory extends Component<IProps> {
           data={this.props.data}
           onClick={(item, index, event) => {
             console.log(`item  ${item}  index  ${index}   event  ${event}`)
+            Taro.navigateTo({
+              url: item.action
+            });
           }}
         />
 
