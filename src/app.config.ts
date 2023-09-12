@@ -4,6 +4,7 @@ export default defineAppConfig({
     'pages/home/index',
     'pages/ucenter/index',
     'pages/sub_category/index',
+    'pages/publish/index',
   ],tabBar: {
     color: '#7A7E83',
     selectedColor: '#3cc51f',

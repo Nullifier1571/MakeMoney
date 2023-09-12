@@ -43,9 +43,8 @@ class SubCategoryPage extends Component<IProps> {
   }
 
   render() {
-    console.log("++++++++++++++" + JSON.stringify(this.props.subcategory.data.data))
     var data = []
-    if (this.props.subcategory != undefined && this.props.subcategory.data != undefined && this.props.subcategory.data.data.category != undefined) {
+    if (this.props.subcategory != undefined && this.props.subcategory.data != undefined && this.props.subcategory.data.data != undefined && this.props.subcategory.data.data.category != undefined) {
       data = this.props.subcategory.data.data.category
     }
     return (
