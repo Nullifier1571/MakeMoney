@@ -21,8 +21,8 @@ class Login extends Component<LoginProps, LoginState> {
     Taro.request({
       url: 'https://api.weixin.qq.com/sns/jscode2session', // 替换为您要请求的 API 地址
       data:{
-        appid:'wx789787e2f7ec325d',
-        secret:'c5784ed25067d7704e68c89ec874c42a',
+        appid:'xx',
+        secret:'xxx',
         js_code:code,
         grant_type:'authorization_code'
       },
