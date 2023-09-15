@@ -6,6 +6,7 @@ import Taro from '@tarojs/taro'
 import {add, minus, asyncAdd} from '../../actions/counter'
 
 import './index.scss'
+import Login from "../../components/login";
 
 // #region 书写注意
 //
@@ -94,6 +95,7 @@ class Index extends Component<PropsWithChildren> {
     }
   }
 
+
   render() {
     console.log('地理位置信息：======================');
     this.getLocation()
@@ -104,7 +106,8 @@ class Index extends Component<PropsWithChildren> {
         <Button className='dec_btn' onClick={this.props.dec}>-</Button>
         <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
         <View><Text>{this.props.counter.num}</Text></View>
-        <View><Text>Hello, World</Text></View>
+        <View><Text >Test Login</Text></View>
+        <View> <Login /></View>
       </View>
     )
   }
